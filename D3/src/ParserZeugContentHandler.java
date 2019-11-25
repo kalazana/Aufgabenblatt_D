@@ -1,11 +1,6 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
 
 //Florian Eimann
 public class ParserZeugContentHandler implements ContentHandler {
@@ -16,6 +11,7 @@ public class ParserZeugContentHandler implements ContentHandler {
     private ParserZeug test = null;
 
     public void characters(char[] ch, int start, int length) {
+
         currentValue = new String(ch, start, length);
     }
     public void startElement(String uri, String localName, String qName, Attributes atts) {
@@ -52,10 +48,9 @@ public class ParserZeugContentHandler implements ContentHandler {
             if (localName.equals("copyright")) {
                 test.setDescription(currentValue);
             }
-            if (localName.equals("content:encoded")) {
+            if (localName.equals("content")) {
                 test.setDescription(currentValue);
             }
-
             if (localName.equals("item")) {
                 System.out.println(test.getTitle());
                 test = null;

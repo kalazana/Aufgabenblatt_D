@@ -8,16 +8,7 @@ public class ParserZeug {
     private String rss;
     private String language;
     private String copyright;
-    private Date date;
-    private String content;
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     public String getLink() {
         return link;
@@ -76,6 +67,6 @@ public class ParserZeug {
     }
     @Override
     public String toString(){
-        return this.title + this.date;
+        return this.title;
     }
 }
