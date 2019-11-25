@@ -1,0 +1,87 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+
+public class ParserZeugContentHandler implements ContentHandler {
+
+
+    //Grundaufbau übernommen von http://blog.mynotiz.de/programmieren/java-sax-parser-tutorial-773/ aus der Vorlesung
+    public String currentValue;
+    public ParserZeug test = null;
+
+    public void characters(char[] ch, int start, int length) {
+        currentValue = new String(ch, start, length);
+    }
+    public void startElement(String uri, String localName, String qName, Attributes atts) {
+        if (localName.equals("test")) {
+            test = new ParserZeug();
+        }
+    }
+
+    // Methode wird aufgerufen wenn der Parser zu einem End-Tag kommt
+    public void endElement(String uri, String localName, String qName) {
+        if (test != null) {
+
+            if (localName.equals("link")) {
+                test.setLink(currentValue);
+            }
+
+            if (localName.equals("title")) {
+                test.setTitle(currentValue);
+            }
+
+            if (localName.equals("description")) {
+                test.setDescription(currentValue);
+            }
+
+            if (localName.equals("channel")) {
+                test.setDescription(currentValue);
+            }
+
+            if (localName.equals("rss")) {
+                test.setDescription(currentValue);
+            }
+
+            if (localName.equals("language")) {
+                test.setDescription(currentValue);
+            }
+
+            if (localName.equals("copyright")) {
+                test.setDescription(currentValue);
+            }
+
+            if (localName.equals("date")) {
+                SimpleDateFormat datumsformat = new SimpleDateFormat("dd.MM.yyyy");
+                try {
+                    Date date = datumsformat.parse(currentValue);
+                    test.setDate(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (localName.equals("test")) {
+                // System.out.println(item);
+                System.out.println(test.getTitle());
+                test = null;
+            }
+        }
+    }
+
+    public void endDocument() throws SAXException {}
+    public void endPrefixMapping(String prefix) throws SAXException {}
+    public void ignorableWhitespace(char[] ch, int start, int length)
+            throws SAXException {}
+    public void processingInstruction(String target, String data)
+            throws SAXException {}
+    public void setDocumentLocator(Locator locator) {  }
+    public void skippedEntity(String name) throws SAXException {}
+    public void startDocument() throws SAXException {}
+    public void startPrefixMapping(String prefix, String uri)
+            throws SAXException {}
+}
