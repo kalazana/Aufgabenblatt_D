@@ -52,23 +52,12 @@ public class ParserZeugContentHandler implements ContentHandler {
             if (localName.equals("copyright")) {
                 test.setDescription(currentValue);
             }
-
-            if (localName.equals("date")) {
-                SimpleDateFormat datumsformat = new SimpleDateFormat("dd.MM.yyyy");
-                try {
-                    Date date = datumsformat.parse(currentValue);
-                    test.setDate(date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
             if (localName.equals("content:encoded")) {
                 test.setDescription(currentValue);
             }
 
             if (localName.equals("item")) {
-                System.out.println(test);
+                System.out.println(test.getTitle());
                 test = null;
             }
         }

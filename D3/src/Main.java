@@ -20,7 +20,7 @@ public class Main {
             InputStream inStream = connection.getInputStream();
             InputSource inputSource = new InputSource(inStream);
             xmlReader.parse(inputSource);
-        } catch (SAXException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

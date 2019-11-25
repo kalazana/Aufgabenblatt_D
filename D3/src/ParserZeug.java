@@ -4,8 +4,8 @@ public class ParserZeug {
     private String link;
     private String title;
     private String description;
-    //private String channel;
-    //private String rss;
+    private String channel;
+    private String rss;
     private String language;
     private String copyright;
     private Date date;
@@ -43,21 +43,21 @@ public class ParserZeug {
         this.description = description;
     }
 
-   // public String getChannel() {
-     //   return channel;
-   // }
+    public String getChannel() {
+         return channel;
+   }
 
-   // public void setChannel(String channel) {
-     //   this.channel = channel;
-    //}
+   public void setChannel(String channel) {
+        this.channel = channel;
+    }
 
-    //public String getRss() {
-      //  return rss;
-    //}
+    public String getRss() {
+        return rss;
+    }
 
-    //public void setRss(String rss) {
-      //  this.rss = rss;
-   // }
+    public void setRss(String rss) {
+     this.rss = rss;
+  }
 
     public String getLanguage() {
         return language;
@@ -74,17 +74,8 @@ public class ParserZeug {
     public void setCopyright(String copyright) {
         this.copyright = copyright;
     }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     @Override
     public String toString(){
-        return this.title;
+        return this.title + this.date;
     }
 }
