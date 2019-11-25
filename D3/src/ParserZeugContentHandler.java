@@ -7,26 +7,24 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
+//Florian Eimann
 public class ParserZeugContentHandler implements ContentHandler {
 
 
     //Grundaufbau übernommen von http://blog.mynotiz.de/programmieren/java-sax-parser-tutorial-773/ aus der Vorlesung
-    public String currentValue;
-    public ParserZeug test = null;
+    private String currentValue;
+    private ParserZeug test = null;
 
     public void characters(char[] ch, int start, int length) {
         currentValue = new String(ch, start, length);
     }
     public void startElement(String uri, String localName, String qName, Attributes atts) {
-        if (localName.equals("test")) {
+        if (localName.equals("item")) {
             test = new ParserZeug();
         }
     }
-
-    // Methode wird aufgerufen wenn der Parser zu einem End-Tag kommt
     public void endElement(String uri, String localName, String qName) {
         if (test != null) {
-
             if (localName.equals("link")) {
                 test.setLink(currentValue);
             }
@@ -65,23 +63,23 @@ public class ParserZeugContentHandler implements ContentHandler {
                 }
             }
 
-            if (localName.equals("test")) {
-                // System.out.println(item);
-                System.out.println(test.getTitle());
+            if (localName.equals("content:encoded")) {
+                test.setDescription(currentValue);
+            }
+
+            if (localName.equals("item")) {
+                System.out.println(test);
                 test = null;
             }
         }
     }
 
-    public void endDocument() throws SAXException {}
-    public void endPrefixMapping(String prefix) throws SAXException {}
-    public void ignorableWhitespace(char[] ch, int start, int length)
-            throws SAXException {}
-    public void processingInstruction(String target, String data)
-            throws SAXException {}
-    public void setDocumentLocator(Locator locator) {  }
-    public void skippedEntity(String name) throws SAXException {}
-    public void startDocument() throws SAXException {}
-    public void startPrefixMapping(String prefix, String uri)
-            throws SAXException {}
+    public void endDocument(){}
+    public void endPrefixMapping(String prefix){}
+    public void ignorableWhitespace(char[] ch, int start, int length){}
+    public void processingInstruction(String target, String data){}
+    public void setDocumentLocator(Locator locator) {}
+    public void skippedEntity(String name) {}
+    public void startDocument() {}
+    public void startPrefixMapping(String prefix, String uri){}
 }
