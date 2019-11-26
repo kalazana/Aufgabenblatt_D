@@ -8,7 +8,7 @@ public class ParserZeugContentHandler implements ContentHandler {
 
     //Grundaufbau übernommen von http://blog.mynotiz.de/programmieren/java-sax-parser-tutorial-773/ aus der Vorlesung
     private String currentValue;
-    private ParserZeug test = null;
+    private ParserZeug parserZeug = null;
 
     public void characters(char[] ch, int start, int length) {
 
@@ -16,44 +16,44 @@ public class ParserZeugContentHandler implements ContentHandler {
     }
     public void startElement(String uri, String localName, String qName, Attributes atts) {
         if (localName.equals("item")) {
-            test = new ParserZeug();
+            parserZeug = new ParserZeug();
         }
     }
     public void endElement(String uri, String localName, String qName) {
-        if (test != null) {
+        if (parserZeug != null) {
             if (localName.equals("link")) {
-                test.setLink(currentValue);
+                parserZeug.setLink(currentValue);
             }
 
             if (localName.equals("title")) {
-                test.setTitle(currentValue);
+                parserZeug.setTitle(currentValue);
             }
 
             if (localName.equals("description")) {
-                test.setDescription(currentValue);
+                parserZeug.setDescription(currentValue);
             }
 
             if (localName.equals("channel")) {
-                test.setDescription(currentValue);
+                parserZeug.setDescription(currentValue);
             }
 
             if (localName.equals("rss")) {
-                test.setDescription(currentValue);
+                parserZeug.setDescription(currentValue);
             }
 
             if (localName.equals("language")) {
-                test.setDescription(currentValue);
+                parserZeug.setDescription(currentValue);
             }
 
             if (localName.equals("copyright")) {
-                test.setDescription(currentValue);
+                parserZeug.setDescription(currentValue);
             }
             if (localName.equals("content")) {
-                test.setDescription(currentValue);
+                parserZeug.setDescription(currentValue);
             }
             if (localName.equals("item")) {
-                System.out.println(test.getTitle());
-                test = null;
+                System.out.println(parserZeug.getTitle());
+                parserZeug = null;
             }
         }
     }
