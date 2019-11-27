@@ -3,11 +3,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
-// TODO: add javadoc
-
-/**
- * @author Jasper Roloff, Matrikelnummer 18837
- */
 public class Zettelkasten implements Iterable<Medium>, Serializable {
     private SortedState sorted = SortedState.NONE;
     private ArrayList<Medium> mediumArrayList = new ArrayList<>();
