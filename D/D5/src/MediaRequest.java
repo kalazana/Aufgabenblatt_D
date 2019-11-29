@@ -8,7 +8,7 @@ import java.net.URLConnection;
 public class MediaRequest {
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
-            throw new Exception("kein Titel angegeben!");
+            throw new Exception("Kein Titel angegeben!");
         }
         final String title = args[0];
         System.out.println(title);

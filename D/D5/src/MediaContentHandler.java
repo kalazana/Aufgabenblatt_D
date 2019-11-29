@@ -2,6 +2,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,9 +10,9 @@ import java.util.Date;
 public class MediaContentHandler implements ContentHandler {
 
     private String currentValue;
-    private MediaSeite mediaSeite = null; //Website website
-    private MediaMeta mediaMeta = null;       //websiteDaten
-    private MediaUserData mediaUserData = null;     //websiteuserdata
+    private MediaSeite website = null;
+    private MediaMeta websiteDaten = null;
+    private MediaUserData websiteUserData = null;
 
     public void characters(char[] ch, int start, int length) throws SAXException {
         currentValue = new String(ch, start, length);
@@ -20,61 +21,61 @@ public class MediaContentHandler implements ContentHandler {
     public void startElement(String uri, String localname, String qName, Attributes atts) throws SAXException {
         switch (localname) {
             case "page":
-                mediaSeite = new MediaSeite();
+                website = new MediaSeite();
                 break;
             case "revision":
-                mediaMeta = new MediaMeta();
+                websiteDaten = new MediaMeta();
                 break;
             case "contributor":
-                mediaUserData = new MediaUserData();
+                websiteUserData = new MediaUserData();
                 break;
         }
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (mediaUserData != null) {
+        if (websiteUserData != null) {
             switch (localName) {
                 case "ip":
-                    mediaUserData.setIp(currentValue);
+                    websiteUserData.setIp(currentValue);
                     break;
                 case "username":
-                    mediaUserData.setUsername(currentValue);
+                    websiteUserData.setUsername(currentValue);
                     break;
                 case "contributor":
-                    mediaMeta.setContributor(mediaUserData);
-                    mediaMeta = null;
+                    websiteDaten.setContributor(websiteUserData);
+                    websiteUserData = null;
                     break;
             }
-        } else if (mediaMeta != null) {
+        } else if (websiteDaten != null) {
             switch (localName) {
                 case "timestamp":
                     SimpleDateFormat datum = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                     try {
                         Date date = datum.parse(currentValue);
-                        mediaMeta.setTimestamp(date);
+                        websiteDaten.setTimestamp(date);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "revision":
-                    mediaSeite.setNeuesteMediaDaten(mediaMeta);
-                    mediaMeta = null;
+                    website.setNeuesteMediaDaten(websiteDaten);
+                    websiteDaten = null;
                     break;
             }
-        } else if (mediaSeite != null) {
+        } else if (website != null) {
             switch (localName) {
                 case "title":
-                    mediaSeite.setTitel(currentValue);
+                    website.setTitel(currentValue);
                     break;
             }
         }
     }
 
     public MediaSeite getWebsite() throws Exception {
-        if (mediaSeite == null) {
+        if (website == null) {
             throw new Exception("Website nicht gefunden");
         }
-        return mediaSeite;
+        return website;
     }
 
     public void endDocument() throws SAXException {
@@ -101,4 +102,3 @@ public class MediaContentHandler implements ContentHandler {
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
     }
 }
-

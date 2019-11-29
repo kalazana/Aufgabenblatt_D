@@ -1,15 +1,15 @@
 
-    public class MediaSeite extends ElektronischesMedium {
+public class MediaSeite extends ElektronischesMedium {
 
-        private MediaMeta neuesteMediaDaten;
+    private MediaMeta neuesteMediaDaten;
 
-        public MediaMeta getNeusteMediaDaten() {
-            return neuesteMediaDaten;
-        }
-
-        public void setNeuesteMediaDaten(MediaMeta neusteWebsiteDaten) {
-            this.neuesteMediaDaten = neusteWebsiteDaten;
-        }
+    public MediaMeta getNeusteMediaDaten() {
+        return neuesteMediaDaten;
     }
+
+    public void setNeuesteMediaDaten(MediaMeta neusteWebsiteDaten) {
+        this.neuesteMediaDaten = neusteWebsiteDaten;
+    }
+}
 
 
