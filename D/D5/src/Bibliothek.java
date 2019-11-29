@@ -35,6 +35,8 @@ public class Bibliothek {
             System.out.println(medium.calculateRepresentation());
         }
 
+
+
         /*try {
             new DatabasePersistency("localhost", "lpsw").save(zettelkasten, null);
         } catch (Exception e) {

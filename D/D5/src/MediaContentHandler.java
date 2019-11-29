@@ -1,68 +1,104 @@
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class MediaContentHandler{
+public class MediaContentHandler implements ContentHandler {
 
+    private String currentValue;
+    private MediaSeite mediaSeite = null; //Website website
+    private MediaMeta mediaMeta = null;       //websiteDaten
+    private MediaUserData mediaUserData = null;     //websiteuserdata
 
-        //Grundaufbau übernommen von http://blog.mynotiz.de/programmieren/java-sax-parser-tutorial-773/ aus der Vorlesung
-        private String currentValue;
-        private MediaSeite mediaSeite = null;
-
-        public void characters(char[] ch, int start, int length) {
-
-            currentValue = new String(ch, start, length);
-        }
-        public void startElement(String uri, String localName, String qName, Attributes atts) {
-            if (localName.equals("item")) {
-                parserZeug = new ParserZeug();
-            }
-        }
-        public void endElement(String uri, String localName, String qName) {
-            if (parserZeug != null) {
-                if (localName.equals("link")) {
-                    parserZeug.setLink(currentValue);
-                }
-
-                if (localName.equals("title")) {
-                    parserZeug.setTitle(currentValue);
-                }
-
-                if (localName.equals("description")) {
-                    parserZeug.setDescription(currentValue);
-                }
-
-                if (localName.equals("channel")) {
-                    parserZeug.setDescription(currentValue);
-                }
-
-                if (localName.equals("rss")) {
-                    parserZeug.setDescription(currentValue);
-                }
-
-                if (localName.equals("language")) {
-                    parserZeug.setDescription(currentValue);
-                }
-
-                if (localName.equals("copyright")) {
-                    parserZeug.setDescription(currentValue);
-                }
-                if (localName.equals("content")) {
-                    parserZeug.setDescription(currentValue);
-                }
-                if (localName.equals("item")) {
-                    System.out.println(parserZeug.getTitle());
-                    parserZeug = null;
-                }
-            }
-        }
-
-        public void endDocument(){}
-        public void endPrefixMapping(String prefix){}
-        public void ignorableWhitespace(char[] ch, int start, int length){}
-        public void processingInstruction(String target, String data){}
-        public void setDocumentLocator(Locator locator) {}
-        public void skippedEntity(String name) {}
-        public void startDocument() {}
-        public void startPrefixMapping(String prefix, String uri){}
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        currentValue = new String(ch, start, length);
     }
+
+    public void startElement(String uri, String localname, String qName, Attributes atts) throws SAXException {
+        switch (localname) {
+            case "page":
+                mediaSeite = new MediaSeite();
+                break;
+            case "revision":
+                mediaMeta = new MediaMeta();
+                break;
+            case "contributor":
+                mediaUserData = new MediaUserData();
+                break;
+        }
+    }
+
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        if (mediaUserData != null) {
+            switch (localName) {
+                case "ip":
+                    mediaUserData.setIp(currentValue);
+                    break;
+                case "username":
+                    mediaUserData.setUsername(currentValue);
+                    break;
+                case "contributor":
+                    mediaMeta.setContributor(mediaUserData);
+                    mediaMeta = null;
+                    break;
+            }
+        } else if (mediaMeta != null) {
+            switch (localName) {
+                case "timestamp":
+                    SimpleDateFormat datum = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                    try {
+                        Date date = datum.parse(currentValue);
+                        mediaMeta.setTimestamp(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "revision":
+                    mediaSeite.setNeuesteMediaDaten(mediaMeta);
+                    mediaMeta = null;
+                    break;
+            }
+        } else if (mediaSeite != null) {
+            switch (localName) {
+                case "title":
+                    mediaSeite.setTitel(currentValue);
+                    break;
+            }
+        }
+    }
+
+    public MediaSeite getWebsite() throws Exception {
+        if (mediaSeite == null) {
+            throw new Exception("Website nicht gefunden");
+        }
+        return mediaSeite;
+    }
+
+    public void endDocument() throws SAXException {
+    }
+
+    public void endPrefixMapping(String prefix) throws SAXException {
+    }
+
+    public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+    }
+
+    public void processingInstruction(String target, String data) throws SAXException {
+    }
+
+    public void setDocumentLocator(Locator locator) {
+    }
+
+    public void skippedEntity(String name) throws SAXException {
+    }
+
+    public void startDocument() throws SAXException {
+    }
+
+    public void startPrefixMapping(String prefix, String uri) throws SAXException {
+    }
+}
 
