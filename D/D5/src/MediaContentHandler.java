@@ -9,16 +9,16 @@ import java.util.Date;
 //Florian Eimann
 public class MediaContentHandler implements ContentHandler {
 
-    private String currentValue;
-    private MediaSeite mediaSeite = null;
-    private MediaDaten mediaDaten = null;
-    private MediaUserDaten websiteUserDaten = null;
+    private String currentValue;                                                                                                        //aktueller Wert des parsers
+    private MediaSeite mediaSeite = null;                                                                                               //die gesamte Website
+    private MediaDaten mediaDaten = null;                                                                                               //enthält timestamp und contributor
+    private MediaUserDaten websiteUserDaten = null;                                                                                     //enthält Nutzername und IP
 
     public void characters(char[] ch, int start, int length) throws SAXException {
         currentValue = new String(ch, start, length);
     }
 
-    public void startElement(String uri, String localname, String qName, Attributes atts) throws SAXException {
+    public void startElement(String uri, String localname, String qName, Attributes atts) throws SAXException {                         //start Element für die einzelnen Objekte
         switch (localname) {
             case "page":
                 mediaSeite = new MediaSeite();
@@ -30,23 +30,23 @@ public class MediaContentHandler implements ContentHandler {
         }
     }
 
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) throws SAXException {                                            //end Element mit den einzelnen cases
         if (websiteUserDaten != null) {
             switch (localName) {
-                case "ip":
+                case "ip":                                                                                                              //setzt ip falls gefunden
                     websiteUserDaten.setIp(currentValue);
                     break;
-                case "username":
+                case "username":                                                                                                        //setzt username falls gefunden
                     websiteUserDaten.setUsername(currentValue);
                     break;
-                case "contributor":
+                case "contributor":                                                                                                     //wertet ip und username aus und setzt dann cotributor
                     mediaDaten.setContributor(websiteUserDaten);
                     websiteUserDaten = null;
                     break;
             }
         } else if (mediaDaten != null) {
             switch (localName) {
-                case "timestamp":
+                case "timestamp":                                                                                                        //sucht nach timestamp und parsed dann das Datum
                     SimpleDateFormat datum = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                     try {
                         Date date = datum.parse(currentValue);
@@ -56,11 +56,11 @@ public class MediaContentHandler implements ContentHandler {
                     }
                     break;
                 case "revision":
-                    mediaSeite.setNeuesteMediaDaten(mediaDaten);
+                    mediaSeite.setNeuesteMediaDaten(mediaDaten);                                                                           //setzt die MediaDaten für MediaSeite
                     mediaDaten = null;
                     break;
             }
-        } else if (mediaSeite != null) {
+        } else if (mediaSeite != null) {                                                                                                   //setzt den Titel
             switch (localName) {
                 case "title":
                     mediaSeite.setTitel(currentValue);
@@ -69,7 +69,7 @@ public class MediaContentHandler implements ContentHandler {
         }
     }
 
-    public MediaSeite getMediaSeite() throws Exception {
+    public MediaSeite getMediaSeite() throws Exception {                                                                                    //falls keine Seite erstellt wurde (weil nicht gefunden) schmeißt er die Fehlermeldung, ansonsten gibt er die Seite zurück
         if (mediaSeite == null) {
             throw new Exception("Website nicht gefunden!");
         }
