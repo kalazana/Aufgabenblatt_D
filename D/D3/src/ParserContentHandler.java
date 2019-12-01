@@ -3,57 +3,56 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 
 //Florian Eimann
-public class ParserZeugContentHandler implements ContentHandler {
+public class ParserContentHandler implements ContentHandler {
 
-
-    //Grundaufbau übernommen von http://blog.mynotiz.de/programmieren/java-sax-parser-tutorial-773/ aus der Vorlesung
+    //Gurndaufbau übernommen aus der Vorlesung
     private String currentValue;
-    private ParserZeug parserZeug = null;
+    private ParserContent parserContent = null;
 
     public void characters(char[] ch, int start, int length) {
 
         currentValue = new String(ch, start, length);
     }
     public void startElement(String uri, String localName, String qName, Attributes atts) {
-        if (localName.equals("item")) {
-            parserZeug = new ParserZeug();
+        if (localName.equals("item")) {                                                                 //"Startbedingung" zum parsen
+            parserContent = new ParserContent();
         }
     }
     public void endElement(String uri, String localName, String qName) {
-        if (parserZeug != null) {
+        if (parserContent != null) {                                                                       //falls ParserConten nicht null ist geht er das XML Dokument durch und setzt den jeweiligen Text für jeden Treffer
             if (localName.equals("link")) {
-                parserZeug.setLink(currentValue);
+                parserContent.setLink(currentValue);
             }
 
             if (localName.equals("title")) {
-                parserZeug.setTitle(currentValue);
+                parserContent.setTitle(currentValue);
             }
 
             if (localName.equals("description")) {
-                parserZeug.setDescription(currentValue);
+                parserContent.setDescription(currentValue);
             }
 
             if (localName.equals("channel")) {
-                parserZeug.setDescription(currentValue);
+                parserContent.setDescription(currentValue);
             }
 
             if (localName.equals("rss")) {
-                parserZeug.setDescription(currentValue);
+                parserContent.setDescription(currentValue);
             }
 
             if (localName.equals("language")) {
-                parserZeug.setDescription(currentValue);
+                parserContent.setDescription(currentValue);
             }
 
             if (localName.equals("copyright")) {
-                parserZeug.setDescription(currentValue);
+                parserContent.setDescription(currentValue);
             }
             if (localName.equals("content")) {
-                parserZeug.setDescription(currentValue);
+                parserContent.setDescription(currentValue);
             }
             if (localName.equals("item")) {
-                System.out.println(parserZeug.getTitle());
-                parserZeug = null;
+                System.out.println(parserContent.getTitle());
+                parserContent = null;
             }
         }
     }

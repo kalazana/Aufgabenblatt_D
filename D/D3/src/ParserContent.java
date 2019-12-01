@@ -1,14 +1,22 @@
 import java.util.Date;
 //Florian Eimann
-public class ParserZeug {
-    private String link;
+public class ParserContent {
+    private String link;                                                                    //Attribute nach denen geprüft wird/gesucht
     private String title;
     private String description;
     private String channel;
     private String rss;
     private String language;
     private String copyright;
+    private String guid;
 
+    public String getGuid() {                                                                           //getter und setter für alle Strings
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
 
     public String getLink() {
         return link;
@@ -65,8 +73,10 @@ public class ParserZeug {
     public void setCopyright(String copyright) {
         this.copyright = copyright;
     }
+
+
     @Override
-    public String toString(){
+    public String toString(){                                                       //für die Ausgabe
         return this.title;
     }
 }

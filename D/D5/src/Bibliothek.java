@@ -1,9 +1,20 @@
 public class Bibliothek {
 
-    public static void main(String[] args) throws Medium.ValidationException {
+    public static void main(String[] args) throws Medium.ValidationException, Exception {
         Zettelkasten zettelkasten = new Zettelkasten();
 
-        Buch buch = new Buch();
+        if (args.length < 1) {
+            throw new Exception("Kein Titel angegeben!");
+        }
+        final String title = args[0];
+        System.out.println(title);
+        try {
+            System.out.println(MediaRequest.readPageInfo(title).getNeusteMediaDaten());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+       /* Buch buch = new Buch();
         buch.setTitel("Duden 01. Die deutsche Rechtschreibung");
         buch.setVerfasser("-");
         buch.setVerlag("Bibliographisches Institut, Mannheim");
@@ -35,7 +46,7 @@ public class Bibliothek {
             System.out.println(medium.calculateRepresentation());
         }
 
-
+*/
 
         /*try {
             new DatabasePersistency("localhost", "lpsw").save(zettelkasten, null);
