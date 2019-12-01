@@ -6,6 +6,7 @@ import org.xml.sax.SAXException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 //Florian Eimann
 public class MediaContentHandler implements ContentHandler {
 
@@ -13,6 +14,7 @@ public class MediaContentHandler implements ContentHandler {
     private MediaSeite mediaSeite = null;                                                                                               //die gesamte Website
     private MediaDaten mediaDaten = null;                                                                                               //enthält timestamp und contributor
     private MediaUserDaten websiteUserDaten = null;                                                                                     //enthält Nutzername und IP
+    private WikiBuch wikiBuch = null;                                                                                                   //Lagerort der Bücher, sowie Kapitel
 
     public void characters(char[] ch, int start, int length) throws SAXException {
         currentValue = new String(ch, start, length);
@@ -27,11 +29,22 @@ public class MediaContentHandler implements ContentHandler {
             case "contributor":
                 websiteUserDaten = new MediaUserDaten();
                 break;
+            case "text":
+                wikiBuch = new WikiBuch();
+                break;
         }
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {                                            //end Element mit den einzelnen cases
-        if (websiteUserDaten != null) {
+        if (wikiBuch != null) {
+            switch (localName) {
+                case "text":                                                                                                            //setzt Regal und Lagerort
+                    wikiBuch.setRegal(currentValue);
+                    mediaDaten.setLagerOrt(wikiBuch);
+                    wikiBuch = null;
+                    break;
+            }
+        } else if (websiteUserDaten != null) {
             switch (localName) {
                 case "ip":                                                                                                              //setzt ip falls gefunden
                     websiteUserDaten.setIp(currentValue);
@@ -67,6 +80,7 @@ public class MediaContentHandler implements ContentHandler {
                     break;
             }
         }
+
     }
 
     public MediaSeite getMediaSeite() throws Exception {                                                                                    //falls keine Seite erstellt wurde (weil nicht gefunden) schmeißt er die Fehlermeldung, ansonsten gibt er die Seite zurück

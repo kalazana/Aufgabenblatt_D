@@ -6,7 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 //Florian Eimann
 public class MediaRequest {
-
+                                                                                                                                                      //Grundidee der Struktur mit Jasper Roloff erarbeitet
    public static MediaSeite readPageInfo(String title) throws Exception {
         XMLReader xmlReader = XMLReaderFactory.createXMLReader();                                                                                     //siehe Aufgabe 3 für Erklärung
         MediaContentHandler pageInfoContentHandler = new MediaContentHandler();

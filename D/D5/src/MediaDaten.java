@@ -11,6 +11,14 @@ public class MediaDaten { //revision
         return contributor;
     }
 
+    public WikiBuch getLagerOrt() {
+        return lagerOrt;
+    }
+
+    public void setLagerOrt(WikiBuch lagerOrt) {
+        this.lagerOrt = lagerOrt;
+    }
+
     public void setContributor(MediaUserDaten contributor) {
         this.contributor = contributor;
     }
@@ -24,8 +32,8 @@ public class MediaDaten { //revision
     }
 
     @Override
-    public String toString() {                                                                                                      //String Builder für Autor und Zeit
+    public String toString() {                                                                                                      //String Builder für Autor, Zeit und Lagerort
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy 'um' HH:mm 'Uhr' (z)");
-        return lagerOrt + "Urheber: " + this.contributor + System.lineSeparator() + "Letzte Änderung: " + dateFormat.format(timestamp);
+        return lagerOrt + "\nUrheber: " + this.contributor + System.lineSeparator() + "Letzte Änderung: " + dateFormat.format(timestamp);
     }
 }
