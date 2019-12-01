@@ -10,9 +10,9 @@ import java.util.Date;
 public class MediaContentHandler implements ContentHandler {
 
     private String currentValue;
-    private MediaSeite website = null;
-    private MediaMeta websiteDaten = null;
-    private MediaUserData websiteUserData = null;
+    private MediaSeite mediaSeite = null;
+    private MediaDaten mediaDaten = null;
+    private MediaUserDaten websiteUserDaten = null;
 
     public void characters(char[] ch, int start, int length) throws SAXException {
         currentValue = new String(ch, start, length);
@@ -21,59 +21,59 @@ public class MediaContentHandler implements ContentHandler {
     public void startElement(String uri, String localname, String qName, Attributes atts) throws SAXException {
         switch (localname) {
             case "page":
-                website = new MediaSeite();
-                websiteDaten = new MediaMeta();
+                mediaSeite = new MediaSeite();
+                mediaDaten = new MediaDaten();
                 break;
             case "contributor":
-                websiteUserData = new MediaUserData();
+                websiteUserDaten = new MediaUserDaten();
                 break;
         }
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        if (websiteUserData != null) {
+        if (websiteUserDaten != null) {
             switch (localName) {
                 case "ip":
-                    websiteUserData.setIp(currentValue);
+                    websiteUserDaten.setIp(currentValue);
                     break;
                 case "username":
-                    websiteUserData.setUsername(currentValue);
+                    websiteUserDaten.setUsername(currentValue);
                     break;
                 case "contributor":
-                    websiteDaten.setContributor(websiteUserData);
-                    websiteUserData = null;
+                    mediaDaten.setContributor(websiteUserDaten);
+                    websiteUserDaten = null;
                     break;
             }
-        } else if (websiteDaten != null) {
+        } else if (mediaDaten != null) {
             switch (localName) {
                 case "timestamp":
                     SimpleDateFormat datum = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                     try {
                         Date date = datum.parse(currentValue);
-                        websiteDaten.setTimestamp(date);
+                        mediaDaten.setTimestamp(date);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     break;
                 case "revision":
-                    website.setNeuesteMediaDaten(websiteDaten);
-                    websiteDaten = null;
+                    mediaSeite.setNeuesteMediaDaten(mediaDaten);
+                    mediaDaten = null;
                     break;
             }
-        } else if (website != null) {
+        } else if (mediaSeite != null) {
             switch (localName) {
                 case "title":
-                    website.setTitel(currentValue);
+                    mediaSeite.setTitel(currentValue);
                     break;
             }
         }
     }
 
-    public MediaSeite getWebsite() throws Exception {
-        if (website == null) {
+    public MediaSeite getMediaSeite() throws Exception {
+        if (mediaSeite == null) {
             throw new Exception("Website nicht gefunden!");
         }
-        return website;
+        return mediaSeite;
     }
 
     public void endDocument() throws SAXException {

@@ -1,16 +1,17 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 //Florian Eimann
-public class MediaMeta { //revision
+public class MediaDaten { //revision
 
     private Date timestamp;
-    private MediaUserData contributor;
+    private MediaUserDaten contributor;
 
-    public MediaUserData getContributor() {
+
+    public MediaUserDaten getContributor() {
         return contributor;
     }
 
-    public void setContributor(MediaUserData contributor) {
+    public void setContributor(MediaUserDaten contributor) {
         this.contributor = contributor;
     }
 

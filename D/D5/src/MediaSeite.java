@@ -1,12 +1,12 @@
 public class MediaSeite extends ElektronischesMedium {
 //Florian Eimann
-    private MediaMeta neuesteMediaDaten;
+    private MediaDaten neuesteMediaDaten;
 
-    public MediaMeta getNeusteMediaDaten() {
+    public MediaDaten getNeusteMediaDaten() {
         return neuesteMediaDaten;
     }
 
-    public void setNeuesteMediaDaten(MediaMeta neusteWebsiteDaten) {
+    public void setNeuesteMediaDaten(MediaDaten neusteWebsiteDaten) {
         this.neuesteMediaDaten = neusteWebsiteDaten;
     }
 }
