@@ -4,7 +4,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-
+//Florian Eimann
 public class MediaRequest {
 
    public static MediaSeite readPageInfo(String title) throws Exception {

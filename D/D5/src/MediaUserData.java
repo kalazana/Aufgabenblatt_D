@@ -1,4 +1,5 @@
 public class MediaUserData {
+    //Florian Eimann
     private String username;
     private String ip;
 

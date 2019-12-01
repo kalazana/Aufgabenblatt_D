@@ -1,5 +1,5 @@
 import java.io.Serializable;
-
+//Florian Eimann
 public abstract class Medium implements Comparable<Medium>, Serializable {
     private String titel;
 

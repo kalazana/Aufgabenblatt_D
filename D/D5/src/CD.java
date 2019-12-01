@@ -1,6 +1,6 @@
 import java.util.Formatter;
 
-
+//Florian Eimann
 public class CD extends Medium {
     private String label;
     private String kuenstler;

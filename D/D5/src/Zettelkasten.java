@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
-
+//Florian Eimann
 public class Zettelkasten implements Iterable<Medium>, Serializable {
     private SortedState sorted = SortedState.NONE;
     private ArrayList<Medium> mediumArrayList = new ArrayList<>();

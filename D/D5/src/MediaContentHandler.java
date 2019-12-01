@@ -6,7 +6,7 @@ import org.xml.sax.SAXException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+//Florian Eimann
 public class MediaContentHandler implements ContentHandler {
 
     private String currentValue;
@@ -22,8 +22,6 @@ public class MediaContentHandler implements ContentHandler {
         switch (localname) {
             case "page":
                 website = new MediaSeite();
-                break;
-            case "revision":
                 websiteDaten = new MediaMeta();
                 break;
             case "contributor":
@@ -73,7 +71,7 @@ public class MediaContentHandler implements ContentHandler {
 
     public MediaSeite getWebsite() throws Exception {
         if (website == null) {
-            throw new Exception("Website nicht gefunden");
+            throw new Exception("Website nicht gefunden!");
         }
         return website;
     }

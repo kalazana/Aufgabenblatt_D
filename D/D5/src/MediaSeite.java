@@ -1,6 +1,5 @@
-
 public class MediaSeite extends ElektronischesMedium {
-
+//Florian Eimann
     private MediaMeta neuesteMediaDaten;
 
     public MediaMeta getNeusteMediaDaten() {

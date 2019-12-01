@@ -1,5 +1,5 @@
 import java.io.*;
-
+//Florian Eimann
 public class BinaryPersistency implements Persistency {
     /**
      * @see Persistency

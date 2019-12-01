@@ -1,5 +1,5 @@
 import java.io.IOException;
-
+//Florian Eimann
 
 public interface Persistency {
     /**

@@ -1,8 +1,6 @@
-
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+//Florian Eimann
 public class MediaMeta { //revision
 
     private Date timestamp;

@@ -1,9 +1,6 @@
 import java.net.URL;
 import java.util.Formatter;
-
-/**
- * @author Jasper Roloff, Matrikelnummer 18837
- */
+//Florian Eimann
 public class ElektronischesMedium extends Medium {
     private String url;
 
