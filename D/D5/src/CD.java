@@ -1,7 +1,9 @@
 import java.util.Formatter;
+import javax.xml.bind.annotation.XmlRootElement;
 
 //Florian Eimann
 public class CD extends Medium {
+    @XmlRootElement                                                                                                                         //Speicherung von XML
     private String label;
     private String kuenstler;
 

@@ -1,4 +1,5 @@
 import java.io.IOException;
+
 //Florian Eimann
 
 public interface Persistency {
@@ -7,7 +8,7 @@ public interface Persistency {
      * @param filename path to file where to save
      * @throws IOException e.g. file not found
      */
-    public void save(Zettelkasten zk, String filename) throws IOException;
+    public void save(Zettelkasten zk, String filename) throws Exception, JAXBException;
 
     /**
      * @param filename from which file to load
@@ -15,5 +16,5 @@ public interface Persistency {
      * @throws IOException e.g. file not found
      * @throws ClassNotFoundException in case of parsing error
      */
-    public Zettelkasten load(String filename) throws IOException, ClassNotFoundException;
+    public Zettelkasten load(String filename) throws Exception;
 }

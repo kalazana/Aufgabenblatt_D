@@ -1,9 +1,11 @@
 import java.util.Formatter;
+import javax.xml.bind.annotation.XmlRootElement;
 //Florian Eimann
 /**
  * @author Jasper Roloff, Matrikelnummer 18837
  */
 public class Buch extends Medium {
+    @XmlRootElement                                                                                                             //Speicherung von XML
     private Integer erscheinungsjahr;
     private String verfasser;
     private String verlag;

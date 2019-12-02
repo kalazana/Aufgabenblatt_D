@@ -1,7 +1,11 @@
-public class WikiBuch extends Buch{
+import javax.xml.bind.annotation.XmlRootElement;
+
+public class WikiBuch extends Buch {
     //Florian Eimann                                                                                                                    //setzt Kapitel bzw Regal
     private String regal;
     private String kapitel;
+
+    @XmlRootElement                                                                                                                      //Speicherung von XML
 
     public String getRegal() {
         return regal;
@@ -20,7 +24,7 @@ public class WikiBuch extends Buch{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Regal: " + this.regal + " \nKapitel: " + this.kapitel;
     }
 }

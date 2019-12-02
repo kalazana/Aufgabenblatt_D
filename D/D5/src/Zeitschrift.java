@@ -1,12 +1,16 @@
 import java.util.Formatter;
+import javax.xml.bind.annotation.XmlRootElement;
+
 //Florian Eimann
 public class Zeitschrift extends Medium {
+    @XmlRootElement                                                                                                                          //Speicherung von XML
     private String issn;
     private Integer volume;
     private Integer nummer;
 
     /**
      * Gibt die Nummer der Zeitschrift zurück
+     *
      * @return Nummer der Zeitschrift
      */
     public int getNummer() {
@@ -15,6 +19,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * Setzt die Nummer der Zeitschrift
+     *
      * @param nummer Nummer der Zeitschrift
      */
     public void setNummer(int nummer) {
@@ -23,6 +28,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * Gibt das Volumen der Zeitschrift zurück
+     *
      * @return Volumen der Zeitschift
      */
     public int getVolume() {
@@ -31,6 +37,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * Setzt das Volumen der Zeitschrift
+     *
      * @param volume Volumen
      */
     public void setVolume(int volume) {
@@ -39,6 +46,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * Gibt die ISSN der Zeitschrift zurück
+     *
      * @return ISSN der Zeitschrift
      */
     public String getIssn() {
@@ -47,6 +55,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * Setzt die ISSN der Zeitschrift
+     *
      * @param issn ISSN
      */
     public void setIssn(String issn) {
@@ -55,6 +64,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * Gibt die Text-Repräsentation der Zeitschrift zurück
+     *
      * @return Text-Repräsentation der Zeitschrift
      * @see Medium#calculateRepresentation()
      */
@@ -84,6 +94,7 @@ public class Zeitschrift extends Medium {
 
     /**
      * validate if all fields are valid
+     *
      * @throws ValidationException thrown when at least one field isn't valid
      */
     @Override

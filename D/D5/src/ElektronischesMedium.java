@@ -1,8 +1,13 @@
 import java.net.URL;
 import java.util.Formatter;
+import javax.xml.bind.annotation.XmlRootElement;
+
 //Florian Eimann
 public class ElektronischesMedium extends Medium {
     private String url;
+
+    @XmlRootElement
+                                                                                                                                            //Speicherung von XML
 
     /**
      * Gibt die URL des elektronischen Mediums zurück
@@ -14,17 +19,20 @@ public class ElektronischesMedium extends Medium {
 
     /**
      * Setzt die URL des elektronischen Mediums
+     *
      * @param url URL
      */
     public void setUrl(String url) {
         if (!ElektronischesMedium.checkURL(url)) {
             System.out.println("Fehler: ungültige URL!");
-        };
+        }
+        ;
         this.url = url;
     }
 
     /**
      * Gibt die Text-Repräsentation des elektronischen Mediums zurück
+     *
      * @return Text-Repräsentation des elektronischen Mediums
      * @see Medium#calculateRepresentation()
      */
@@ -57,6 +65,7 @@ public class ElektronischesMedium extends Medium {
 
     /**
      * Prüft eine URL auf Gültigkeit
+     *
      * @param urlString URL als String
      * @return true für gültig, false für ungültig
      */

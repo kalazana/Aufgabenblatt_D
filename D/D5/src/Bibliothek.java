@@ -14,6 +14,22 @@ public class Bibliothek {
             e.printStackTrace();
         }
 
+        try {
+            System.out.println("XML wird gespeichert");                                                               //testen
+            new XMLPersistency().save(zettelkasten, "/zettelkasten.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println("XML wird geladen");
+            for (Medium medium : new XMLPersistency().load("/zettelkasten.xml")) {
+                System.out.println(medium.calculateRepresentation());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
        /* Buch buch = new Buch();
         buch.setTitel("Duden 01. Die deutsche Rechtschreibung");
         buch.setVerfasser("-");

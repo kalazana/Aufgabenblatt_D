@@ -2,13 +2,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import javax.xml.bind.annotation.XmlRootElement;
+
 //Florian Eimann
 public class Zettelkasten implements Iterable<Medium>, Serializable {
+    @XmlElementWrapper(name = "medien")                                                                                             //Idee von Jasper Roloff
+    @XmlElementRefs({
+
+            @XmlElementRef(type = ElektronischesMedium.class),                                                                     //Für XML Speicherung
+            @XmlElementRef(type = Buch.class),
+            @XmlElementRef(type = CD.class),                                                                                        //klassiche Typen
+            @XmlElementRef(type = Medium.class),
+            @XmlElementRef(type = Zeitschrift.class),
+
+            @XmlElementRef(type = MediaSeite.class),                                                                                //XML Page
+    })
     private SortedState sorted = SortedState.NONE;
     private ArrayList<Medium> mediumArrayList = new ArrayList<>();
 
     /**
      * add's a medium instance
+     *
      * @param medium the Medium instance to add
      * @throws Medium.ValidationException
      */
@@ -25,9 +39,10 @@ public class Zettelkasten implements Iterable<Medium>, Serializable {
 
     /**
      * removes a medium by it's title
+     *
      * @param title title of the medium
      * @throws DuplicateEntryException when multiple entries were found
-     * @throws EntryNotFoundException when no entry was found
+     * @throws EntryNotFoundException  when no entry was found
      */
     public void dropMedium(String title) throws DuplicateEntryException, EntryNotFoundException {
         ArrayList<Medium> results = new ArrayList<>();
@@ -51,6 +66,7 @@ public class Zettelkasten implements Iterable<Medium>, Serializable {
 
     /**
      * removes a medium by it's title, and index for the case there are multiple entries
+     *
      * @param title the title of the medium to remove
      * @param index the index within the results list
      * @throws EntryNotFoundException when there is no result at all or the index doesn't exists within results
@@ -71,6 +87,7 @@ public class Zettelkasten implements Iterable<Medium>, Serializable {
 
     /**
      * returns a medium by title
+     *
      * @param title title of the medium
      * @return an ArrayList of results (could be empty)
      */
@@ -94,6 +111,7 @@ public class Zettelkasten implements Iterable<Medium>, Serializable {
 
     /**
      * sorts the internal ArrayList by media title from a-z
+     *
      * @param reversed if true, sorting will be done from z-a instead a-z
      */
     public void sort(boolean reversed) {
